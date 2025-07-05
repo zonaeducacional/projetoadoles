@@ -46,16 +46,35 @@
 </head>
 <body class="bg-gray-900 text-gray-300">
 
-    <div class="flex h-screen">
+    <div class="relative min-h-screen md:flex">
+        <!-- Overlay para o menu mobile -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
+
+        <!-- Header para Mobile -->
+        <div class="bg-gray-800 text-gray-100 flex justify-between md:hidden fixed top-0 left-0 right-0 z-40">
+            <a href="#" class="block p-4 text-white font-bold">Redação & Debate</a>
+            <button id="hamburger-button" class="p-4 focus:outline-none focus:bg-gray-700">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
         <!-- Sidebar de Navegação -->
-        <aside class="w-64 bg-gray-800 text-gray-200 flex flex-col p-4 space-y-4">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="bg-indigo-600 p-2 rounded-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 22h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v8"></path><path d="M6 18H4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2"></path><path d="M18 18h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2"></path><path d="M6 6h12"></path><path d="M6 10h12"></path><path d="M6 14h6"></path></svg>
+        <aside id="sidebar" class="bg-gray-800 text-gray-200 w-64 space-y-4 p-4 flex flex-col fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 ease-in-out z-30">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="bg-indigo-600 p-2 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 22h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v8"></path><path d="M6 18H4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2"></path><path d="M18 18h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2"></path><path d="M6 6h12"></path><path d="M6 10h12"></path><path d="M6 14h6"></path></svg>
+                    </div>
+                    <h1 class="text-xl font-bold">Redação & Debate</h1>
                 </div>
-                <h1 class="text-xl font-bold">Redação & Debate</h1>
+                <button id="close-sidebar-button" class="md:hidden p-2 focus:outline-none">
+                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
-            <nav class="flex flex-col space-y-2">
+            
+            <nav class="flex-1 flex flex-col space-y-2">
                 <a href="#" id="nav-dashboard" class="nav-link active flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     Painel Principal
@@ -75,11 +94,10 @@
         </aside>
 
         <!-- Conteúdo Principal -->
-        <main class="flex-1 p-6 lg:p-8 overflow-y-auto no-scrollbar">
+        <main class="flex-1 p-6 lg:p-8 overflow-y-auto no-scrollbar pt-20 md:pt-6">
             
-            <!-- Página: Painel Principal (Dashboard) -->
             <div id="dashboard-page" class="page">
-                <h2 class="text-3xl font-bold text-white mb-6">Painel Principal</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">Painel Principal</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
                     <a href="https://www.kialo-edu.com/p/c6ff308e-959a-43fa-9269-4bae8c22676f/522316" target="_blank" class="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 hover:scale-105 transition-all duration-300 transform">
@@ -111,16 +129,14 @@
                         </div>
                         <p class="text-gray-400">Veja os artigos de opinião publicados por outros estudantes e compartilhe o seu.</p>
                     </div>
-
                 </div>
             </div>
 
-            <!-- Página: Laboratório de Escrita -->
             <div id="laboratorio-page" class="page hidden">
-                <h2 class="text-3xl font-bold text-white mb-6">Laboratório de Escrita</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">Laboratório de Escrita</h2>
                 <div class="space-y-8">
-                    <div class="bg-gray-800 p-6 rounded-xl">
-                        <h3 class="text-2xl font-bold text-white mb-4">Como Escrever um Artigo de Opinião para o ENEM</h3>
+                    <div class="bg-gray-800 p-4 md:p-6 rounded-xl">
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4">Como Escrever um Artigo de Opinião para o ENEM</h3>
                         <div class="space-y-4 text-gray-300">
                             <p>O artigo de opinião é um texto dissertativo-argumentativo onde você expõe um ponto de vista sobre um determinado tema, sustentado por argumentos sólidos. A estrutura clássica é a chave para uma boa nota.</p>
                             <div>
@@ -138,15 +154,15 @@
                         </div>
                     </div>
 
-                    <div class="bg-gray-800 p-6 rounded-xl">
-                        <h3 class="text-2xl font-bold text-white mb-4">1. Escreva seu Artigo</h3>
+                    <div class="bg-gray-800 p-4 md:p-6 rounded-xl">
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4">1. Escreva seu Artigo</h3>
                         <p class="mb-4 text-gray-400">Clique no botão abaixo para abrir o editor de texto online. Lá você poderá escrever seu artigo de forma simples e rápida.</p>
                         <a href="https://telegra.ph/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors mb-8">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                             Começar a Escrever no Telegraph
                         </a>
                         
-                        <h3 class="text-2xl font-bold text-white mb-4">2. Publique seu Artigo no Mural</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4">2. Publique seu Artigo no Mural</h3>
                         <p class="mb-4 text-gray-400">Depois de escrever, o Telegraph vai gerar uma página para seu artigo. Copie o link (URL) dessa página e cole no campo abaixo, junto com as outras informações.</p>
 
                         <form id="article-form" class="space-y-4">
@@ -170,29 +186,24 @@
                 </div>
             </div>
 
-            <!-- Página: Mural de Publicações -->
             <div id="mural-page" class="page hidden">
-                <h2 class="text-3xl font-bold text-white mb-6">Mural de Publicações</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">Mural de Publicações</h2>
                 <div id="articles-container" class="space-y-4">
                     <p id="loading-message" class="text-gray-400">Carregando publicações...</p>
                 </div>
             </div>
-
         </main>
     </div>
     
-    <!-- Modal de Notificação -->
-    <div id="notification-modal" class="hidden fixed top-5 right-5 bg-green-500 text-white py-3 px-5 rounded-lg shadow-lg z-50 animate-pulse">
+    <div id="notification-modal" class="hidden fixed top-20 md:top-5 right-5 bg-green-500 text-white py-3 px-5 rounded-lg shadow-lg z-50 animate-pulse">
         <p>Publicação realizada com sucesso!</p>
     </div>
 
-    <!-- Lógica da Aplicação com JSONBin -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- CONFIGURAÇÃO E INICIALIZAÇÃO JSONBin ---
-            // IMPORTANTE: Substitua os valores abaixo pela sua API Key e Bin ID.
-            const JSONBIN_API_KEY = '$2a$10$dl/5wg6j78uEQNgmToucuuah.Ez9UyMql8Un4Cpmjm4ian4j9o.7e'; // COLOQUE SUA X-MASTER-KEY AQUI
-            const JSONBIN_BIN_ID = '68699fe98a456b7966bbfe93'; // COLOQUE O ID DO SEU BIN AQUI
+            // --- CONFIGURAÇÃO JSONBin ---
+            const JSONBIN_API_KEY = '$2a$10$dl/5wg6j78uEQNgmToucuuah.Ez9UyMql8Un4Cpmjm4ian4j9o.7e';
+            const JSONBIN_BIN_ID = '68699fe98a456b7966bbfe93';
             
             const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
             const JSONBIN_HEADERS = {
@@ -201,6 +212,10 @@
             };
 
             // --- ELEMENTOS DA UI ---
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const closeSidebarButton = document.getElementById('close-sidebar-button');
             const pages = {
                 dashboard: document.getElementById('dashboard-page'),
                 laboratorio: document.getElementById('laboratorio-page'),
@@ -219,6 +234,16 @@
             const articlesContainer = document.getElementById('articles-container');
             const notificationModal = document.getElementById('notification-modal');
 
+            // --- LÓGICA DO MENU RESPONSIVO ---
+            function toggleSidebar() {
+                sidebar.classList.toggle('-translate-x-full');
+                sidebarOverlay.classList.toggle('hidden');
+            }
+
+            hamburgerButton.addEventListener('click', toggleSidebar);
+            closeSidebarButton.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+
             // --- NAVEGAÇÃO ENTRE PÁGINAS ---
             function showPage(pageName) {
                 Object.values(pages).forEach(page => page.classList.add('hidden'));
@@ -228,15 +253,20 @@
                     pages[pageName].classList.remove('hidden');
                     navLinks[pageName].classList.add('active');
                 }
+                // Fecha o menu mobile ao navegar
+                if (window.innerWidth < 768) { 
+                    toggleSidebar();
+                }
             }
             
-            navLinks.dashboard.addEventListener('click', (e) => { e.preventDefault(); showPage('dashboard'); });
-            navLinks.laboratorio.addEventListener('click', (e) => { e.preventDefault(); showPage('laboratorio'); });
-            navLinks.mural.addEventListener('click', (e) => { 
-                e.preventDefault(); 
-                showPage('mural');
-                loadArticles(); 
+            Object.keys(navLinks).forEach(key => {
+                navLinks[key].addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (key === 'mural') loadArticles();
+                    showPage(key);
+                });
             });
+
             cardLinks.laboratorio.addEventListener('click', () => showPage('laboratorio'));
             cardLinks.mural.addEventListener('click', () => {
                 showPage('mural');
@@ -251,7 +281,6 @@
                     return;
                 }
 
-                // Ordena os artigos do mais recente para o mais antigo
                 const sortedArticles = articles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
                 sortedArticles.forEach(article => {
@@ -287,7 +316,7 @@
                         method: 'GET',
                         headers: { 'X-Master-Key': JSONBIN_API_KEY }
                     });
-                    if (response.status === 404) { // Bin não encontrado ou vazio
+                    if (response.status === 404) {
                          renderArticles([]);
                          return;
                     }
@@ -306,7 +335,6 @@
             // --- LÓGICA DO FORMULÁRIO DE PUBLICAÇÃO ---
             articleForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-
                 const title = articleForm.title.value;
                 const author = articleForm.author.value;
                 const url = articleForm.url.value;
@@ -317,20 +345,17 @@
                 submitButton.textContent = 'Publicando...';
 
                 try {
-                    // 1. Pega a lista atual de artigos
                     const getResponse = await fetch(`${JSONBIN_URL}/latest`, { headers: { 'X-Master-Key': JSONBIN_API_KEY } });
                     let articles = [];
                     if (getResponse.ok) {
                         const currentData = await getResponse.json();
-                        articles = currentData.record;
+                        articles = Array.isArray(currentData.record) ? currentData.record : [];
                     } else if (getResponse.status !== 404) {
                         throw new Error('Não foi possível buscar os artigos existentes.');
                     }
 
-                    // 2. Adiciona o novo artigo
                     articles.push(newArticle);
 
-                    // 3. Atualiza o bin com a lista completa
                     const putResponse = await fetch(JSONBIN_URL, {
                         method: 'PUT',
                         headers: JSONBIN_HEADERS,
@@ -363,6 +388,10 @@
 
             // --- INICIALIZAÇÃO DA APLICAÇÃO ---
             showPage('dashboard');
+            // Carrega os artigos na primeira vez que a página do mural é mostrada
+            if (document.getElementById('mural-page').classList.contains('hidden') === false) {
+                loadArticles();
+            }
         });
     </script>
 </body>
