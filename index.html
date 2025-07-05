@@ -148,9 +148,16 @@
 
                     <!-- Seção de Publicação -->
                     <div class="bg-gray-800 p-6 rounded-xl">
-                        <h3 class="text-2xl font-bold text-white mb-4">Publique seu Artigo</h3>
-                        <p class="mb-4 text-gray-400">Escreva seu artigo em uma ferramenta online (como Google Docs, Notion, etc.), gere um link de compartilhamento público (qualquer pessoa com o link pode ver) e cole as informações abaixo.</p>
+                        <h3 class="text-2xl font-bold text-white mb-4">1. Escreva seu Artigo</h3>
+                        <p class="mb-4 text-gray-400">Clique no botão abaixo para abrir o editor de texto online. Lá você poderá escrever seu artigo de forma simples e rápida.</p>
+                        <a href="https://telegra.ph/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors mb-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                            Começar a Escrever no Telegraph
+                        </a>
                         
+                        <h3 class="text-2xl font-bold text-white mb-4">2. Publique seu Artigo no Mural</h3>
+                        <p class="mb-4 text-gray-400">Depois de escrever, o Telegraph vai gerar uma página para seu artigo. Copie o link (URL) dessa página e cole no campo abaixo, junto com as outras informações.</p>
+
                         <form id="article-form" class="space-y-4">
                             <div>
                                 <label for="article-title" class="block text-sm font-medium text-gray-300 mb-1">Título do Artigo</label>
@@ -161,8 +168,8 @@
                                 <input type="text" id="author-name" name="author" required class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500">
                             </div>
                             <div>
-                                <label for="article-url" class="block text-sm font-medium text-gray-300 mb-1">Link Público do Artigo</label>
-                                <input type="url" id="article-url" name="url" required placeholder="https://docs.google.com/document/d/..." class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500">
+                                <label for="article-url" class="block text-sm font-medium text-gray-300 mb-1">Link do seu Artigo (do Telegraph)</label>
+                                <input type="url" id="article-url" name="url" required placeholder="https://telegra.ph/seu-artigo-12-34" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500">
                             </div>
                             <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">
                                 Publicar no Mural
