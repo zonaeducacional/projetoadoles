@@ -70,8 +70,7 @@
                 </a>
             </nav>
             <div class="mt-auto pt-4 border-t border-gray-700">
-                <p class="text-xs text-gray-400">Seu ID de Usuário:</p>
-                <p id="userIdDisplay" class="text-xs font-mono break-all" title="Este é seu ID único na plataforma."></p>
+                <p class="text-xs text-gray-400">Armazenamento via JSONBin.io</p>
             </div>
         </aside>
 
@@ -83,7 +82,6 @@
                 <h2 class="text-3xl font-bold text-white mb-6">Painel Principal</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
-                    <!-- Card: Fórum de Debates -->
                     <a href="https://www.kialo-edu.com/p/c6ff308e-959a-43fa-9269-4bae8c22676f/522316" target="_blank" class="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 hover:scale-105 transition-all duration-300 transform">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="bg-blue-500 p-3 rounded-lg">
@@ -94,7 +92,6 @@
                         <p class="text-gray-400">Participe de discussões estruturadas sobre temas atuais e relevantes para a redação. (Link externo)</p>
                     </a>
 
-                    <!-- Card: Laboratório de Escrita -->
                     <div id="card-laboratorio" class="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 hover:scale-105 transition-all duration-300 transform cursor-pointer">
                         <div class="flex items-center gap-4 mb-4">
                              <div class="bg-green-500 p-3 rounded-lg">
@@ -105,7 +102,6 @@
                         <p class="text-gray-400">Acesse materiais, aprenda a estrutura do artigo de opinião e publique seus textos.</p>
                     </div>
 
-                    <!-- Card: Mural de Publicações -->
                     <div id="card-mural" class="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 hover:scale-105 transition-all duration-300 transform cursor-pointer">
                         <div class="flex items-center gap-4 mb-4">
                              <div class="bg-purple-500 p-3 rounded-lg">
@@ -123,22 +119,18 @@
             <div id="laboratorio-page" class="page hidden">
                 <h2 class="text-3xl font-bold text-white mb-6">Laboratório de Escrita</h2>
                 <div class="space-y-8">
-                    <!-- Seção de Conceitos -->
                     <div class="bg-gray-800 p-6 rounded-xl">
                         <h3 class="text-2xl font-bold text-white mb-4">Como Escrever um Artigo de Opinião para o ENEM</h3>
                         <div class="space-y-4 text-gray-300">
                             <p>O artigo de opinião é um texto dissertativo-argumentativo onde você expõe um ponto de vista sobre um determinado tema, sustentado por argumentos sólidos. A estrutura clássica é a chave para uma boa nota.</p>
-                            
                             <div>
                                 <h4 class="font-semibold text-lg text-white mb-2">1. Introdução (1º Parágrafo)</h4>
                                 <p>Apresente o tema e, de forma clara, a sua tese (seu ponto de vista). Você pode contextualizar o assunto com um dado histórico, uma citação ou uma notícia para engajar o leitor desde o início.</p>
                             </div>
-
                             <div>
                                 <h4 class="font-semibold text-lg text-white mb-2">2. Desenvolvimento (2º e 3º Parágrafos)</h4>
                                 <p>É aqui que você defende sua tese. Cada parágrafo deve desenvolver um argumento principal. Use dados estatísticos, fatos históricos, citações de especialistas e exemplos concretos para dar força aos seus argumentos. Lembre-se de conectar as ideias de forma coesa.</p>
                             </div>
-
                              <div>
                                 <h4 class="font-semibold text-lg text-white mb-2">3. Conclusão (4º Parágrafo)</h4>
                                 <p>Retome sua tese, sintetize os argumentos e, no caso do ENEM, apresente uma Proposta de Intervenção Social (PIS). A PIS deve ser detalhada, indicando: <strong>Agente</strong> (quem vai fazer?), <strong>Ação</strong> (o que será feito?), <strong>Meio/Modo</strong> (como será feito?), <strong>Finalidade</strong> (para quê?) e um <strong>Detalhamento</strong> de um desses elementos.</p>
@@ -146,7 +138,6 @@
                         </div>
                     </div>
 
-                    <!-- Seção de Publicação -->
                     <div class="bg-gray-800 p-6 rounded-xl">
                         <h3 class="text-2xl font-bold text-white mb-4">1. Escreva seu Artigo</h3>
                         <p class="mb-4 text-gray-400">Clique no botão abaixo para abrir o editor de texto online. Lá você poderá escrever seu artigo de forma simples e rápida.</p>
@@ -183,7 +174,6 @@
             <div id="mural-page" class="page hidden">
                 <h2 class="text-3xl font-bold text-white mb-6">Mural de Publicações</h2>
                 <div id="articles-container" class="space-y-4">
-                    <!-- Os artigos serão inseridos aqui pelo JavaScript -->
                     <p id="loading-message" class="text-gray-400">Carregando publicações...</p>
                 </div>
             </div>
@@ -196,207 +186,184 @@
         <p>Publicação realizada com sucesso!</p>
     </div>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Importações do Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <!-- Lógica da Aplicação com JSONBin -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURAÇÃO E INICIALIZAÇÃO JSONBin ---
+            // IMPORTANTE: Substitua os valores abaixo pela sua API Key e Bin ID.
+            const JSONBIN_API_KEY = '$2a$10$xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'; // COLOQUE SUA X-MASTER-KEY AQUI
+            const JSONBIN_BIN_ID = 'xxxxxxxxxxxxxxxxxxxx'; // COLOQUE O ID DO SEU BIN AQUI
+            
+            const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
+            const JSONBIN_HEADERS = {
+                'Content-Type': 'application/json',
+                'X-Master-Key': JSONBIN_API_KEY
+            };
 
-        // --- CONFIGURAÇÃO E INICIALIZAÇÃO ---
+            // --- ELEMENTOS DA UI ---
+            const pages = {
+                dashboard: document.getElementById('dashboard-page'),
+                laboratorio: document.getElementById('laboratorio-page'),
+                mural: document.getElementById('mural-page')
+            };
+            const navLinks = {
+                dashboard: document.getElementById('nav-dashboard'),
+                laboratorio: document.getElementById('nav-laboratorio'),
+                mural: document.getElementById('nav-mural')
+            };
+            const cardLinks = {
+                laboratorio: document.getElementById('card-laboratorio'),
+                mural: document.getElementById('card-mural')
+            };
+            const articleForm = document.getElementById('article-form');
+            const articlesContainer = document.getElementById('articles-container');
+            const notificationModal = document.getElementById('notification-modal');
 
-        // Configuração do Firebase (será preenchida pelo ambiente)
-        const firebaseConfig = typeof __firebase_config !== 'undefined' 
-            ? JSON.parse(__firebase_config) 
-            : { apiKey: "YOUR_API_KEY", authDomain: "YOUR_AUTH_DOMAIN", projectId: "YOUR_PROJECT_ID" };
+            // --- NAVEGAÇÃO ENTRE PÁGINAS ---
+            function showPage(pageName) {
+                Object.values(pages).forEach(page => page.classList.add('hidden'));
+                Object.values(navLinks).forEach(link => link.classList.remove('active'));
 
-        // ID da aplicação (será preenchido pelo ambiente)
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-        // Inicializa Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        
-        // Habilita logs para depuração
-        // setLogLevel('debug');
-
-        let currentUserId = null;
-
-        // --- AUTENTICAÇÃO ---
-        onAuthStateChanged(auth, user => {
-            if (user) {
-                console.log("Usuário autenticado:", user.uid);
-                currentUserId = user.uid;
-                document.getElementById('userIdDisplay').textContent = currentUserId;
-                // Após autenticar, começa a ouvir as publicações
-                listenToArticles();
-            } else {
-                console.log("Nenhum usuário autenticado. Tentando login anônimo ou com token.");
-                // Tenta autenticar com token customizado se disponível, senão, anonimamente
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    signInWithCustomToken(auth, __initial_auth_token).catch(error => {
-                        console.error("Erro no login com token:", error);
-                        signInAnonymously(auth).catch(err => console.error("Erro no login anônimo:", err));
-                    });
-                } else {
-                    signInAnonymously(auth).catch(err => console.error("Erro no login anônimo de fallback:", err));
+                if (pages[pageName] && navLinks[pageName]) {
+                    pages[pageName].classList.remove('hidden');
+                    navLinks[pageName].classList.add('active');
                 }
             }
-        });
-
-        // --- NAVEGAÇÃO ENTRE PÁGINAS ---
-
-        const pages = {
-            dashboard: document.getElementById('dashboard-page'),
-            laboratorio: document.getElementById('laboratorio-page'),
-            mural: document.getElementById('mural-page')
-        };
-
-        const navLinks = {
-            dashboard: document.getElementById('nav-dashboard'),
-            laboratorio: document.getElementById('nav-laboratorio'),
-            mural: document.getElementById('nav-mural')
-        };
-        
-        const cardLinks = {
-            laboratorio: document.getElementById('card-laboratorio'),
-            mural: document.getElementById('card-mural')
-        }
-
-        function showPage(pageName) {
-            // Esconde todas as páginas
-            Object.values(pages).forEach(page => page.classList.add('hidden'));
-            // Remove a classe 'active' de todos os links de navegação
-            Object.values(navLinks).forEach(link => link.classList.remove('active'));
-
-            // Mostra a página e ativa o link correspondente
-            if (pages[pageName] && navLinks[pageName]) {
-                pages[pageName].classList.remove('hidden');
-                navLinks[pageName].classList.add('active');
-            }
-        }
-        
-        // Event Listeners para a navegação
-        navLinks.dashboard.addEventListener('click', (e) => { e.preventDefault(); showPage('dashboard'); });
-        navLinks.laboratorio.addEventListener('click', (e) => { e.preventDefault(); showPage('laboratorio'); });
-        navLinks.mural.addEventListener('click', (e) => { e.preventDefault(); showPage('mural'); });
-        
-        // Event Listeners para os cards
-        cardLinks.laboratorio.addEventListener('click', () => showPage('laboratorio'));
-        cardLinks.mural.addEventListener('click', () => showPage('mural'));
-
-        // --- LÓGICA DO FIRESTORE (MURAL) ---
-
-        const articlesCollectionRef = collection(db, `artifacts/${appId}/public/data/articles`);
-
-        // Função para renderizar os artigos no mural
-        function renderArticles(articles) {
-            const container = document.getElementById('articles-container');
-            container.innerHTML = ''; // Limpa o container
-
-            if (articles.length === 0) {
-                container.innerHTML = '<p class="text-gray-400">Ainda não há publicações. Seja o primeiro a compartilhar seu artigo!</p>';
-                return;
-            }
-
-            articles.forEach(article => {
-                const articleElement = document.createElement('a');
-                articleElement.href = article.url;
-                articleElement.target = '_blank';
-                articleElement.rel = 'noopener noreferrer';
-                articleElement.className = 'block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors';
-
-                const titleElement = document.createElement('h4');
-                titleElement.textContent = article.title;
-                titleElement.className = 'text-lg font-bold text-indigo-400';
-
-                const authorElement = document.createElement('p');
-                authorElement.textContent = `Por: ${article.author}`;
-                authorElement.className = 'text-sm text-gray-400';
-                
-                const urlElement = document.createElement('p');
-                urlElement.textContent = article.url;
-                urlElement.className = 'text-xs text-gray-500 mt-2 truncate';
-
-                articleElement.appendChild(titleElement);
-                articleElement.appendChild(authorElement);
-                articleElement.appendChild(urlElement);
-                container.appendChild(articleElement);
-            });
-        }
-
-        // Função para ouvir as mudanças na coleção de artigos
-        function listenToArticles() {
-            const q = query(articlesCollectionRef);
-            onSnapshot(q, (snapshot) => {
-                const articles = [];
-                snapshot.forEach((doc) => {
-                    articles.push({ id: doc.id, ...doc.data() });
-                });
-                console.log("Artigos recebidos:", articles);
-                renderArticles(articles);
-            }, (error) => {
-                console.error("Erro ao buscar artigos:", error);
-                document.getElementById('articles-container').innerHTML = '<p class="text-red-400">Ocorreu um erro ao carregar as publicações. Tente recarregar a página.</p>';
-            });
-        }
-
-        // --- LÓGICA DO FORMULÁRIO DE PUBLICAÇÃO ---
-
-        const articleForm = document.getElementById('article-form');
-        articleForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            if (!currentUserId) {
-                alert("Você precisa estar autenticado para publicar. Por favor, aguarde ou recarregue a página.");
-                return;
-            }
-
-            const title = articleForm.title.value;
-            const author = articleForm.author.value;
-            const url = articleForm.url.value;
-
-            try {
-                // Adiciona o novo artigo ao Firestore
-                await addDoc(articlesCollectionRef, {
-                    title: title,
-                    author: author,
-                    url: url,
-                    createdAt: new Date(),
-                    authorId: currentUserId
-                });
-
-                // Limpa o formulário
-                articleForm.reset();
-                
-                // Mostra notificação de sucesso
-                showNotification();
-
-                // Muda para a página do mural para ver a publicação
+            
+            navLinks.dashboard.addEventListener('click', (e) => { e.preventDefault(); showPage('dashboard'); });
+            navLinks.laboratorio.addEventListener('click', (e) => { e.preventDefault(); showPage('laboratorio'); });
+            navLinks.mural.addEventListener('click', (e) => { 
+                e.preventDefault(); 
                 showPage('mural');
+                loadArticles(); 
+            });
+            cardLinks.laboratorio.addEventListener('click', () => showPage('laboratorio'));
+            cardLinks.mural.addEventListener('click', () => {
+                showPage('mural');
+                loadArticles();
+            });
 
-            } catch (error) {
-                console.error("Erro ao adicionar documento: ", error);
-                alert("Ocorreu um erro ao publicar seu artigo. Tente novamente.");
+            // --- LÓGICA DO JSONBin (MURAL) ---
+            function renderArticles(articles) {
+                articlesContainer.innerHTML = '';
+                if (!articles || articles.length === 0) {
+                    articlesContainer.innerHTML = '<p class="text-gray-400">Ainda não há publicações. Seja o primeiro a compartilhar seu artigo!</p>';
+                    return;
+                }
+
+                // Ordena os artigos do mais recente para o mais antigo
+                const sortedArticles = articles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                sortedArticles.forEach(article => {
+                    const articleElement = document.createElement('a');
+                    articleElement.href = article.url;
+                    articleElement.target = '_blank';
+                    articleElement.rel = 'noopener noreferrer';
+                    articleElement.className = 'block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors';
+
+                    const titleElement = document.createElement('h4');
+                    titleElement.textContent = article.title;
+                    titleElement.className = 'text-lg font-bold text-indigo-400';
+
+                    const authorElement = document.createElement('p');
+                    authorElement.textContent = `Por: ${article.author}`;
+                    authorElement.className = 'text-sm text-gray-400';
+                    
+                    const urlElement = document.createElement('p');
+                    urlElement.textContent = article.url;
+                    urlElement.className = 'text-xs text-gray-500 mt-2 truncate';
+
+                    articleElement.appendChild(titleElement);
+                    articleElement.appendChild(authorElement);
+                    articleElement.appendChild(urlElement);
+                    articlesContainer.appendChild(articleElement);
+                });
             }
+
+            async function loadArticles() {
+                document.getElementById('loading-message').style.display = 'block';
+                try {
+                    const response = await fetch(`${JSONBIN_URL}/latest`, {
+                        method: 'GET',
+                        headers: { 'X-Master-Key': JSONBIN_API_KEY }
+                    });
+                    if (response.status === 404) { // Bin não encontrado ou vazio
+                         renderArticles([]);
+                         return;
+                    }
+                    if (!response.ok) throw new Error(`Erro de rede: ${response.statusText}`);
+                    
+                    const data = await response.json();
+                    renderArticles(data.record);
+                } catch (error) {
+                    console.error("Erro ao carregar artigos do JSONBin:", error);
+                    articlesContainer.innerHTML = '<p class="text-red-400">Ocorreu um erro ao carregar as publicações. Verifique se a API Key e o Bin ID estão corretos no código.</p>';
+                } finally {
+                    document.getElementById('loading-message').style.display = 'none';
+                }
+            }
+
+            // --- LÓGICA DO FORMULÁRIO DE PUBLICAÇÃO ---
+            articleForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const title = articleForm.title.value;
+                const author = articleForm.author.value;
+                const url = articleForm.url.value;
+                const newArticle = { title, author, url, createdAt: new Date().toISOString() };
+
+                const submitButton = articleForm.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Publicando...';
+
+                try {
+                    // 1. Pega a lista atual de artigos
+                    const getResponse = await fetch(`${JSONBIN_URL}/latest`, { headers: { 'X-Master-Key': JSONBIN_API_KEY } });
+                    let articles = [];
+                    if (getResponse.ok) {
+                        const currentData = await getResponse.json();
+                        articles = currentData.record;
+                    } else if (getResponse.status !== 404) {
+                        throw new Error('Não foi possível buscar os artigos existentes.');
+                    }
+
+                    // 2. Adiciona o novo artigo
+                    articles.push(newArticle);
+
+                    // 3. Atualiza o bin com a lista completa
+                    const putResponse = await fetch(JSONBIN_URL, {
+                        method: 'PUT',
+                        headers: JSONBIN_HEADERS,
+                        body: JSON.stringify(articles)
+                    });
+
+                    if (!putResponse.ok) throw new Error('Não foi possível salvar o novo artigo.');
+
+                    articleForm.reset();
+                    showNotification();
+                    showPage('mural');
+                    renderArticles(articles);
+
+                } catch (error) {
+                    console.error("Erro ao publicar no JSONBin:", error);
+                    alert("Ocorreu um erro ao publicar seu artigo: " + error.message);
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Publicar no Mural';
+                }
+            });
+            
+            // --- FUNÇÕES AUXILIARES ---
+            function showNotification() {
+                notificationModal.classList.remove('hidden');
+                setTimeout(() => {
+                    notificationModal.classList.add('hidden');
+                }, 3000);
+            }
+
+            // --- INICIALIZAÇÃO DA APLICAÇÃO ---
+            showPage('dashboard');
         });
-        
-        // --- FUNÇÕES AUXILIARES ---
-        
-        const notificationModal = document.getElementById('notification-modal');
-        function showNotification() {
-            notificationModal.classList.remove('hidden');
-            setTimeout(() => {
-                notificationModal.classList.add('hidden');
-            }, 3000); // A notificação some após 3 segundos
-        }
-
-        // --- INICIALIZAÇÃO DA APLICAÇÃO ---
-        
-        // Mostra o painel principal ao carregar a página
-        showPage('dashboard');
-
     </script>
 </body>
 </html>
